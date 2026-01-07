@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JR Evolux Educação Profissional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Configurações Globais */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0B0F14;
+      color: #FFFFFF;
+      padding-top: 80px;
+      line-height: 1.6;
+    }
+
+    /* TOPO E MENU */
+    .topo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 10%;
+      background: rgba(11, 15, 20, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1c8dc2;
+    }
+
+    .logo-area { font-weight: 700; font-size: 1.5rem; color: #00E676; letter-spacing: 1px; }
+
+    .menu { display: flex; }
+    .menu a {
+      margin-left: 30px;
+      color: #E5E7EB;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+    .menu a:hover { color: #00E676; }
+
+    /* Menu Hamburger (Mobile) */
+    .menu-toggle { display: none; color: #00E676; font-size: 1.5rem; cursor: pointer; }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 40px 20px 80px;
+      text-align: center;
+      background: linear-gradient(135deg, #00E676 0%, #1c8dc2 100%);
+      color: #0B0F14;
+      clip-path: ellipse(150% 100% at 50% 0%);
+    }
+
+    .hero-logo {
+      max-width: 90%;
+      width: 500px;
+      margin-bottom: -40px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+    }
+
+    .hero p { font-size: 1.5rem; font-weight: 600; margin-bottom: 30px; }
+
+    /* SEÇÕES E CARDS */
+    section { padding: 80px 10%; max-width: 1400px; margin: auto; }
+
+    h2 { 
+      color: #00E676; 
+      margin-bottom: 40px; 
+      font-size: 2.2rem;
+      border-left: 5px solid #00B0FF; 
+      padding-left: 20px; 
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #161D29;
+      padding: 35px;
+      border-radius: 20px;
+      transition: 0.4s;
+      border: 1px solid #1f2937;
+      opacity: 0; 
+      transform: translateY(30px);
+    }
+
+    .card.reveal { opacity: 1; transform: translateY(0); }
+    .card:hover { transform: translateY(-10px); border-color: #00E676; box-shadow: 0 15px 30px rgba(0,230,118,0.1); }
+    .card h3 { color: #00B0FF; margin-bottom: 15px; font-size: 1.4rem; }
+
+    /* BOTÕES */
+    .cta {
+      background: #00E676;
+      color: #0B0F14;
+      padding: 16px 40px;
+      display: inline-block;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta:hover { background: #FFFFFF; transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+    /* FORMULÁRIOS */
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #2d3748;
+      background: #1f2937;
+      color: white;
+      font-size: 1rem;
+    }
+    input:focus { outline: 2px solid #00E676; background: #262f3f; }
+
+    /* RODAPÉ */
+    .rodape {
+      background: #05070a;
+      padding: 80px 10% 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      color: #9E9E9E;
+      border-top: 1px solid #1f2937;
+    }
+
+    /* WHATSAPP FLUTUANTE */
+    .btn-wpp {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+      z-index: 1100;
+      transition: 0.3s;
+    }
+    .btn-wpp:hover { transform: scale(1.1) rotate(10deg); }
+
+    /* RESPONSIVIDADE */
+    @media(max-width:992px){
+      .topo { padding: 15px 5%; }
+      .menu {
+        display: none;
+        position: absolute;
+        top: 80px; left: 0; width: 100%;
+        background: #0B0F14;
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid #1c8dc2;
+      }
+      .menu.active { display: flex; }
+      .menu a { margin: 15px 0; font-size: 1.2rem; }
+      .menu-toggle { display: block; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="logo-area">JR EVOLUX</div>
+  <div class="menu-toggle" id="mobile-menu">☰</div>
+  <nav class="menu" id="nav-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#area-aluno">Área do Aluno</a>
+    <a href="#matricula">Matrícula</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <img src="topo.jpg.png" alt="JR Evolux Logo" class="hero-logo">
+  <p>Evolua seu potencial. Profissionalize sua carreira.</p>
+  <a href="#cursos" class="cta">Explorar Cursos</a>
+</section>
+
+<section id="sobre">
+  <h2>Excelência em Ensino</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+    <div style="flex: 1; min-width: 300px;">
+      <p style="font-size: 1.2rem; color: #cbd5e0;">
+        Na <strong>JR Evolux</strong>, não apenas ensinamos teoria. Nós preparamos você para os desafios reais do mercado de trabalho em Betim e região. Nossos cursos são desenhados por especialistas ativos no setor.
+      </p>
+    </div>
+    <div class="cards" style="flex: 1; min-width: 300px;">
+      <div class="card reveal" style="padding: 20px;">
+        <h4 style="color:#00E676">Prática Garantida</h4>
+        <p>Aulas focadas no "fazer" desde o primeiro dia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cursos">
+  <h2>Nossos Cursos</h2>
+  <div class="cards">
+    <div class="card reveal">
+      <h3>Informática Gerencial</h3>
+      <p>Domine Windows, Excel Avançado e rotinas administrativas modernas.</p>
+      <p style="margin-top:15px; font-weight:bold; color:#00E676;">Carga: 60h</p>
+    </div>
+    <div class="card reveal">
+      <h3>Marketing Digital</h3>
+      <p>Gestão de tráfego (Ads), redes sociais e copyright para vendas.</p>
+      <p style="margin-top:15px; font-weight:bold; color:#00E676;">Carga: 80h</p>
+    </div>
+    <div class="card reveal">
+      <h3>Projetista Industrial</h3>
+      <p>Leitura técnica, AutoCAD e normas essenciais para a indústria.</p>
+      <p style="margin-top:15px; font-weight:bold; color:#00E676;">Carga: 100h</p>
+    </div>
+    <div class="card reveal">
+      <h3>Power BI</h3>
+      <p>Business Intelligence: transforme dados brutos em decisões estratégicas.</p>
+      <p style="margin-top:15px; font-weight:bold; color:#00E676;">Carga: 50h</p>
+    </div>
+  </div>
+</section>
+
+<section id="area-aluno" style="background: #0d131f; max-width: 100%;">
+  <div style="max-width: 1100px; margin: auto;">
+    <h2>Portal do Aluno</h2>
+    <div class="cards">
+      <div class="card reveal">
+        <h3>Entrar no Painel</h3>
+        <form id="form-login">
+          <input type="email" placeholder="E-mail cadastrado" required />
+          <input type="password" placeholder="Senha" required />
+          <button type="submit" class="cta" style="width:100%">Entrar</button>
+        </form>
+      </div>
+      <div class="card reveal" style="background: transparent; border: none;">
+        <h3 style="color: #fff">Recursos Exclusivos</h3>
+        <ul style="list-style: none; line-height: 2.5;">
+          <li>🚀 Acesso a aulas gravadas</li>
+          <li>📄 Download de apostilas e materiais</li>
+          <li>🎓 Solicitação de certificados</li>
+          <li>💬 Chat direto com professores</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="matricula">
+  <div style="text-align: center; max-width: 700px; margin: auto;">
+    <h2>Garanta sua Vaga</h2>
+    <p style="margin-bottom: 30px; color: #a0aec0;">Preencha os dados abaixo e você será redirecionado para o nosso WhatsApp.</p>
+    <div class="card reveal" style="text-align: left;">
+      <form id="form-matricula">
+        <input type="text" id="nome" placeholder="Nome completo" required />
+        <input type="tel" id="whatsapp_input" placeholder="Seu WhatsApp" required />
+        <select id="curso-select" required>
+          <option value="">Qual curso te interessa?</option>
+          <option>Informática Gerencial</option>
+          <option>Marketing Digital</option>
+          <option>Projetista Industrial</option>
+          <option>Power BI</option>
+        </select>
+        <button type="submit" class="cta" style="width: 100%;">Confirmar Pré-Inscrição</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div>
+    <h3 style="color: #00E676; margin-bottom: 20px;">JR Evolux</h3>
+    <p>Transformando educação em evolução profissional desde o primeiro clique.</p>
+  </div>
+  <div>
+    <h4 style="color: #fff; margin-bottom: 20px;">CONTATO</h4>
+    📍 Betim – MG<br>
+    📞 (31) 97335-3553<br>
+    📧 contato@jrevolux.com
+  </div>
+  <div>
+    <h4 style="color: #fff; margin-bottom: 20px;">ATENDIMENTO</h4>
+    Seg - Sex: 08h às 21h<br>
+    Sábado: 08h às 14h<br>
+    <p style="margin-top: 20px; font-size: 0.8rem;">© 2026 JR Evolux • Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/5531973353553" class="btn-wpp" target="_blank" title="Falar com consultor">
+  <svg viewBox="0 0 32 32" style="width:35px; fill:white;"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.475 2.037 7.775l-2.037 7.725 7.9-2.075c2.25 1.25 4.837 1.975 7.6 1.975 8.837 0 16-7.163 16-16s-7.163-16-16-16zm8.25 22.337c-0.337 0.963-1.687 1.775-2.737 2.013-0.713 0.163-1.65 0.287-2.737-0.063-0.713-0.225-1.575-0.513-2.65-0.987-4.575-2.013-7.537-6.637-7.763-6.937-0.225-0.313-1.85-2.463-1.85-4.7s1.163-3.337 1.575-3.787c0.413-0.45 0.913-0.563 1.213-0.563s0.613 0.013 0.875 0.025c0.275 0.013 0.638-0.1 1 0.763 0.363 0.875 1.238 3.013 1.35 3.238s0.188 0.488 0.038 0.787c-0.15 0.3-0.225 0.488-0.45 0.75s-0.475 0.588-0.675 0.787c-0.225 0.225-0.463 0.475-0.2 0.925 0.263 0.45 1.163 1.913 2.5 3.1 1.713 1.525 3.163 2 3.613 2.225s0.75 0.175 1.038-0.15c0.288-0.325 1.238-1.438 1.575-1.925 0.338-0.488 0.675-0.4 1.138-0.238s2.913 1.375 3.413 1.625c0.5 0.25 0.838 0.375 0.963 0.588 0.125 0.225 0.125 1.288-0.213 2.25z"/></svg>
+</a>
+
+<script>
+// MENU MOBILE TOGGLE
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('nav-links');
+
+mobileMenu.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  mobileMenu.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+});
+
+// FECHAR MENU AO CLICAR EM UM LINK
+document.querySelectorAll('.menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    mobileMenu.textContent = '☰';
+  });
+});
+
+// EFEITO REVEAL (SURGIR AO ROLAR)
+const reveal = () => {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const windowHeight = window.innerHeight;
+    const elementTop = card.getBoundingClientRect().top;
+    const elementVisible = 150;
+    if (elementTop < windowHeight - elementVisible) {
+      card.classList.add('reveal');
+    }
+  });
+}
+window.addEventListener('scroll', reveal);
+reveal();
+
+// --- FUNÇÃO DE MATRÍCULA VIA WHATSAPP ---
+document.getElementById('form-matricula').addEventListener('submit', function(e) {
+  e.preventDefault(); // Impede o envio normal do formulário
+
+  // Captura os dados preenchidos pelo aluno
+  const nome = document.getElementById('nome').value;
+  const telefone = document.getElementById('whatsapp_input').value;
+  const curso = document.getElementById('curso-select').value;
+  
+  // Seu número de atendimento (JR Evolux)
+  const meuNumero = "5531973353553";
+
+  // Monta a mensagem (os asteriscos deixam em negrito no WhatsApp)
+  const textoMensagem = `Olá, equipe JR Evolux! 👋\n\n` +
+    `Gostaria de solicitar minha *Pré-Inscrição* pelo site:\n\n` +
+    `👤 *Nome:* ${nome}\n` +
+    `📞 *WhatsApp:* ${telefone}\n` +
+    `📚 *Curso Escolhido:* ${curso}\n\n` +
+    `Aguardo o contato para os próximos passos! 🚀`;
+
+  // Codifica o texto para URL
+  const linkZap = `https://wa.me/${meuNumero}?text=${encodeURIComponent(textoMensagem)}`;
+  
+  // Abre o WhatsApp em uma nova aba
+  window.open(linkZap, '_blank');
+
+  alert('Excelente! Estamos te levando para o WhatsApp para concluir sua matrícula.');
+  this.reset();
+});
+
+// LOGIN (SIMULAÇÃO)
+document.getElementById('form-login').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Portal do Aluno: Usuário não encontrado ou em fase de manutenção.');
+});
+</script>
+
+</body>
+</html>
